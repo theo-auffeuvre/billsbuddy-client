@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import styles from "./NavBar.module.css";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function NavBar() {
   };
 
   return (
-    <div>
+    <div className={ styles.sidebar }>
       <h1>BILLSBUDDY</h1>
       <Link to="/">Accueil</Link>
       <Link to="/customers/new">Nouveau client</Link>

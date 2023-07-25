@@ -1,0 +1,20 @@
+.searchbar {
+  width: 20%;
+  height: 30px;
+  border-radius: 0.4rem;
+  border: none;
+
+}
+
+.searchbar::-webkit-input-placeholder {
+  font-style: italic;
+}
+:-moz-placeholder {
+  font-style: italic;
+}
+::-moz-placeholder {
+  font-style: italic;
+}
+:-ms-input-placeholder {
+  font-style: italic;
+}

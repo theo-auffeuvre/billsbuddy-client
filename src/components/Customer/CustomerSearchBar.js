@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "./CustomerSearchBar.module.css";
 
 export default function CustomerSearchBar(props) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -9,6 +10,6 @@ export default function CustomerSearchBar(props) {
   };
 
   return (
-    <input onChange={handleChange} type="text" placeholder="Rechercher un client" value={searchTerm} />
+    <input onChange={handleChange} type="text" placeholder="Rechercher dans mes clients..." value={searchTerm} className={styles.searchbar} />
   );
 }

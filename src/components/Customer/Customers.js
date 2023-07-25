@@ -1,14 +1,17 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import CustomerList from "../components/Customer/CustomerList";
-import CustomerSearchBar from "../components/Customer/CustomerSearchBar";
-import CustomerForm from "../components/Customer/CustomerForm";
+import { useNavigate, /*useSearchParams*/ } from 'react-router-dom';
+import CustomerList from "./CustomerList";
+import CustomerSearchBar from "./CustomerSearchBar";
+import CustomerForm from "./CustomerForm";
+import styles from "../NavBar.module.css";
+import customersStyles from "./Customers.module.css";
+
 
 export default function CustomerPage() {
   const [customers, setCustomers] = useState([]);
   const [customersDisplayed, setCustomersDisplayed] = useState([]);
   const [customerFormDisplayed, setCustomerFormDisplayed] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams()
+  // const [searchParams, setSearchParams] = useSearchParams()
 
   const navigate = useNavigate();
 
@@ -47,9 +50,7 @@ export default function CustomerPage() {
       const keys = Object.keys(customer);
       for(let i = 1; i < keys.length; i++) {
         const key = keys[i];
-        console.log(customer[key].toLowerCase().includes(searchTerm.toLowerCase()));
         if (customer[key].toLowerCase().includes(searchTerm.toLowerCase())) {
-          console.log("iyfg");
           return true;
         }
       }
@@ -57,7 +58,7 @@ export default function CustomerPage() {
       return false;
     });
     setCustomersDisplayed(filteredCustomers);
-    setSearchParams({search: searchTerm});
+    // setSearchParams({search: searchTerm});
   };
 
   useEffect(() => {
@@ -65,11 +66,8 @@ export default function CustomerPage() {
       navigate("/login");
     } else {
       fetchCustomers();
-      searchParams.get('search') && updateList(searchParams.get('search'));
     }
   }, [navigate, fetchCustomers]);
-
-
 
   const handleAddCustomer = async (customer) => {
     const company = localStorage.getItem("company");
@@ -111,11 +109,13 @@ export default function CustomerPage() {
   };
 
   return (
-    <div>
-      <h1>Mes clients</h1>
-      <CustomerSearchBar updateList={updateList} />
-      {customerFormDisplayed && <CustomerForm onAddCustomer={handleAddCustomer} closeForm={toggleAddCustomerForm } />}
-      <button onClick={toggleAddCustomerForm}>Ajouter un client</button>
+    <div className={ styles.container }>
+      <h1 className={ customersStyles.title }>Mes clients</h1>
+      <div className={ customersStyles.header }>
+        <CustomerSearchBar updateList={updateList} />
+        {customerFormDisplayed && <CustomerForm onAddCustomer={handleAddCustomer} closeForm={toggleAddCustomerForm } />}
+        <button onClick={toggleAddCustomerForm} className={ customersStyles.buttonAdd }>Nouveau client</button>
+      </div>
       <CustomerList customers={customersDisplayed} />
     </div>
   );
